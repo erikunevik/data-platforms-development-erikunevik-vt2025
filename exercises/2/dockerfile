@@ -1,0 +1,9 @@
+FROM python:3.9
+
+WORKDIR /src
+
+COPY . .
+
+RUN pip install -r src/requirements.txt
+
+CMD ["python", "src/os_data.py"]
