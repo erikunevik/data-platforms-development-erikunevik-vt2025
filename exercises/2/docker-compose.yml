@@ -1,0 +1,11 @@
+version: '3.9'
+
+services:
+  app:
+    build:
+      context: .  # Make sure this points to the correct directory where your src folder is located
+      dockerfile: dockerfile
+    volumes:
+      - ./src:/src  # Bind the src folder from your local machine to /src in the container
+    working_dir: /src
+    command: python os_data.py

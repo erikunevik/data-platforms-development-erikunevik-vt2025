@@ -1,0 +1,10 @@
+services: # Allt detta är syntax för att göra bindmount, är rootkey där alla containers är definerade. 
+  python-app:
+      build: . # Den tar automatiskt dockerfilen. 
+      volumes:
+        - .:/app
+
+  # Container 2
+      #image: postgres: 15.0
+
+

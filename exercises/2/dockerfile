@@ -1,9 +1,9 @@
 FROM python:3.9
 
-WORKDIR /src
+#WORKDIR /src Behövs inte så länge jag kör compose
 
 COPY . .
 
 RUN pip install -r src/requirements.txt
 
-CMD ["python", "src/os_data.py"]
+#CMD ["python", "src/os_data.py"] Behövs inte så länge jag kör compose
