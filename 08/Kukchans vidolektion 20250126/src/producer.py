@@ -6,12 +6,16 @@ from quixstreams import Application
 data_path = Path(__file__).parents[1] / "data"
 #print(data_path)
 
+
+# Read in jokes.json through its absolute path
 with open(data_path / "jokes.json", "r") as file:
         jokes = json.load(file) # Converts the json file to python format
         
 # pprint(jokes)
 
-app = Application(broker_address="localhost:9092", consumer_group="text-splitter") # Communicates with the broker, broker_address är servern. 
+# Communicates with the broker, broker_address är servern. A form of entry poitn for interacting with kafka. 
+# Local host 90:92. text-splitter that we communicate with. 
+app = Application(broker_address="localhost:9092", consumer_group="text-splitter")
                   
 #print(app)
 
@@ -24,7 +28,7 @@ jokes_topic = app.topic(name = "jokes", value_serializer="json")
 def main():
     with app.get_producer() as producer:
             
-        print(producer)
+       
                 
         for joke in jokes:
             kafka_msg = jokes_topic.serialize(key=joke["joke_id"], value = joke)
