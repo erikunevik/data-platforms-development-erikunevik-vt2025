@@ -67,8 +67,8 @@ def main():
             # Serialize order data
             kafka_msg = order_topic.serialize(key=order["order_id"], value=order)
             
-            print(f"\nInput: {order}")
-            print(f"Customer name = {order['customer']}")
+            print(f"Total individual order: \n \n {order}\n")
+            print(f"Customer name: {order['customer']}\n")
 
             total = 0
             for product in order["products"]:
@@ -79,7 +79,7 @@ def main():
                 print(f"Product: {product_name:<20} Quantity: {product_quantity:<5} Price: {product_price}")
                 total += product_quantity * product_price
 
-            print(f"Total price: {total:.2f}")
+            print(f"Total price: {total:.2f}\n")
 
             # Produce the message to Kafka
             producer.produce(topic="orders", key=str(kafka_msg.key), value=kafka_msg.value)
