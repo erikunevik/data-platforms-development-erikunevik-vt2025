@@ -1,0 +1,21 @@
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER} # Dollar tecknet gör att vi kommer gå till env filen som ligger i samma mapp för info. 
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - "${POSTGRES_PORT}:5432" # mapping
+    volumes:
+      - postgres_data:/var/lib/postgresql/data # named_olume its the older where we persist/save the data in our postgres database
+      - .sql/:/sql # Kommandet gör en bindmount, alla mina filer i sql mappen på datorn hamnar i postgres containern permanent. 
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres}"]
+      interval: 5s
+      retries: 5
+      timeout: 3s
+volumes:
+  postgres_data:
